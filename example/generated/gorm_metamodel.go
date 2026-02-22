@@ -43,23 +43,6 @@ var GormElement_ = struct {
 	Name:       "name",
 }
 
-// Entity_ contains field name constants for Entity
-var Entity_ = struct {
-	TableName  string
-	TableNames string
-	Id         Field
-	Uuid       Field
-	CreatedAt  Field
-	UpdatedAt  Field
-}{
-	TableName:  "entity",
-	TableNames: "entitys", // table name with 's'
-	Id:         "id",
-	Uuid:       "uuid",
-	CreatedAt:  "created_at",
-	UpdatedAt:  "updated_at",
-}
-
 // EmbeddedEntity_ contains field name constants for EmbeddedEntity
 var EmbeddedEntity_ = struct {
 	TableName    string
