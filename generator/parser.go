@@ -57,7 +57,7 @@ func parseFields(structType *ast.StructType, tag string) []FieldMeta {
 		if rawTag == "" {
 			continue
 		}
-		tagName := parseTagName(rawTag)
+		tagName := parseTagName(rawTag, tag)
 		if tagName == "" || tagName == "-" {
 			continue
 		}
@@ -71,13 +71,25 @@ func parseFields(structType *ast.StructType, tag string) []FieldMeta {
 	return fields
 }
 
-func parseTagName(tag string) string {
-	// Remove any spaces (some people write "json: field_name")
-	tag = strings.TrimSpace(tag)
+func parseTagName(rawTag string, tagKey string) string {
+	tag := strings.TrimSpace(rawTag)
+	if tagKey == "gorm" {
+		return parseGormTagName(tag)
+	}
 	// Split by comma to handle options like omitempty
 	parts := strings.Split(tag, ",")
 	if len(parts) > 0 {
 		return strings.TrimSpace(parts[0])
 	}
 	return tag
+}
+
+func parseGormTagName(tag string) string {
+	for _, part := range strings.Split(tag, ";") {
+		part = strings.TrimSpace(part)
+		if strings.HasPrefix(part, "column:") {
+			return strings.TrimPrefix(part, "column:")
+		}
+	}
+	return ""
 }

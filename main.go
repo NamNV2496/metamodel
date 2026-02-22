@@ -13,7 +13,7 @@ var (
 	source      = flag.String("source", "", "Source file to generate metamodel from (e.g., models.go)")
 	destination = flag.String("destination", "", "Output file for generated code (default: <source>_metamodel.go, e.g., models_metamodel.go)")
 	packageName = flag.String("packageName", "", "Package name for generated file (default: same as source, e.g., models)")
-	tag         = flag.String("tag", "json", "Specific tag name to generate (optional, e.g., json, bson)")
+	tag         = flag.String("tag", "json", "Specific tag name to generate (optional, e.g., json, bson, gorm)")
 )
 
 func main() {

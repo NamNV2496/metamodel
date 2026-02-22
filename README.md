@@ -86,6 +86,7 @@ var Feature_ = struct {
 	Description: "description",
 }
 
+//go:generate metamodel -source=feature.go -destination=../generated/ -tag=bson
 var Scenarios_ = struct {
 	TableName   string
 	TableNames  string
