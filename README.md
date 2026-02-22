@@ -15,10 +15,6 @@ Install the tool using `go install`:
 
 ```bash
 go install github.com/namnv2496/metamodel@latest
-
-or
-
-go install github.com/namnv2496/metamodel@v2.0.0
 ```
 
 Or build from source:
