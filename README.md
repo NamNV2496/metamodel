@@ -70,7 +70,7 @@ import (
 
 func main() {
 	// Use the generated metamodel constants
-	fmt.Println("Scenarios.FeatureName:", repository_.Scenarios_.Table)
+	fmt.Println("Scenarios.TableName:", repository_.Scenarios_.TableName)
 	fmt.Println("Scenarios.FeatureName:", repository_.Scenarios_.FeatureName)
 	fmt.Println("Scenarios.Status:", repository_.Scenarios_.Status)
 	fmt.Println("Feature.FeatureName:", repository_.Feature_.FeatureName)

@@ -37,12 +37,12 @@ package {{.PackageName}}
 {{range .Structs}}
 // {{.Name}}_ contains field name constants for {{.Name}}
 var {{.Name}}_ = struct {
-	Table string
+	TableName string
 {{- range .Fields}}
 	{{.Name}} string
 {{- end}}
 }{
-	Table: "{{.Name}}",
+	TableName: "{{.Name}}",
 {{- range .Fields}}
 	{{.Name}}: "{{.TagName}}",
 {{- end}}
