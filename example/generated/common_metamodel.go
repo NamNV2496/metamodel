@@ -4,6 +4,7 @@ package repository_
 
 const (
 	Comma      string = ", "
+	ON         string = " ON "
 	JOIN       string = " join "
 	INNER_JOIN string = " inner join "
 )

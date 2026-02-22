@@ -5,19 +5,31 @@ package repository_
 
 // GormTest_ contains field name constants for GormTest
 var GormTest_ = struct {
-	TableName   string
-	TableNames  string
-	FeatureName Field
-	Type        Field
-	IsActive    Field
-	GormElement Field
+	TableName      string
+	TableNames     string
+	Id             Field
+	Uuid           Field
+	CreatedAt      Field
+	UpdatedAt      Field
+	FeatureName    Field
+	Type           Field
+	IsActive       Field
+	GormElement    Field
+	PriceUnit      Field
+	EmbeddedEntity Field
 }{
-	TableName:   "gorm_test",
-	TableNames:  "gorm_tests", // table name with 's'
-	FeatureName: "feature_name",
-	Type:        "type",
-	IsActive:    "is_active",
-	GormElement: "gorm_element",
+	TableName:      "gorm_test",
+	TableNames:     "gorm_tests", // table name with 's'
+	Id:             "id",
+	Uuid:           "uuid",
+	CreatedAt:      "created_at",
+	UpdatedAt:      "updated_at",
+	FeatureName:    "feature_name",
+	Type:           "type",
+	IsActive:       "is_active",
+	GormElement:    "gorm_element",
+	PriceUnit:      "price_unit",
+	EmbeddedEntity: "embedded_entity",
 }
 
 // GormElement_ contains field name constants for GormElement
@@ -29,4 +41,44 @@ var GormElement_ = struct {
 	TableName:  "gorm_element",
 	TableNames: "gorm_elements", // table name with 's'
 	Name:       "name",
+}
+
+// Entity_ contains field name constants for Entity
+var Entity_ = struct {
+	TableName  string
+	TableNames string
+	Id         Field
+	Uuid       Field
+	CreatedAt  Field
+	UpdatedAt  Field
+}{
+	TableName:  "entity",
+	TableNames: "entitys", // table name with 's'
+	Id:         "id",
+	Uuid:       "uuid",
+	CreatedAt:  "created_at",
+	UpdatedAt:  "updated_at",
+}
+
+// EmbeddedEntity_ contains field name constants for EmbeddedEntity
+var EmbeddedEntity_ = struct {
+	TableName    string
+	TableNames   string
+	Id           Field
+	Uuid         Field
+	CreatedAt    Field
+	UpdatedAt    Field
+	CategoryType Field
+	ParentId     Field
+	Value        Field
+}{
+	TableName:    "embedded_entity",
+	TableNames:   "embedded_entitys", // table name with 's'
+	Id:           "id",
+	Uuid:         "uuid",
+	CreatedAt:    "created_at",
+	UpdatedAt:    "updated_at",
+	CategoryType: "category_type",
+	ParentId:     "parent_id",
+	Value:        "value",
 }

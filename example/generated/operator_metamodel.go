@@ -118,3 +118,7 @@ func (f Field) DescString() string {
 func (f Field) String() string {
 	return string(f)
 }
+
+func (f Field) As(val any) string {
+	return fmt.Sprintf(" %s as %v ", string(f), val)
+}

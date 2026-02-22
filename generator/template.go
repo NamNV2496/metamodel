@@ -29,6 +29,7 @@ package {{.PackageName}}
 
 const (
 	Comma      string = ", "
+	ON		   string = " ON "
 	JOIN       string = " join "
 	INNER_JOIN string = " inner join "
 )
@@ -153,5 +154,9 @@ func (f Field) DescString() string {
 // String returns the raw column name.
 func (f Field) String() string {
 	return string(f)
+}
+
+func (f Field) As(val any) string {
+	return fmt.Sprintf(" %s as %v ", string(f), val)
 }
 `

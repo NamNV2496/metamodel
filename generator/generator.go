@@ -137,7 +137,7 @@ func generateCommonFile(pkgName, destDir string) error {
 
 func generateOperatorFile(pkgName, destDir string) error {
 	fieldFilePath := filepath.Join(destDir, "operator_metamodel.go")
-	tmpl, err := template.New("gormField").Parse(gormFieldTemplate)
+	tmpl, err := template.New("operator").Parse(gormFieldTemplate)
 	if err != nil {
 		return err
 	}
