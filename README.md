@@ -1,8 +1,14 @@
 # Metamodel - Go Code Generator for Struct Field Constants
 
-In development the hard code is very popular. Especially, when work with database example when query "select * from table where 'id'=xxx and 'name'='yyy'".
+## Overview
 
-Metamodel is a code generation tool that scans Go structs with `json` or `bson` tags and generates type-safe field name constants. This helps eliminate string literals in your code and provides compile-time safety when working with struct field names.
+Hard-coded strings are common in development, especially when working with databases. For example:
+
+```sql
+SELECT * FROM table WHERE id = xxx AND name = 'yyy'
+```
+
+**Metamodel** is a code generation tool that scans Go structs with `json` or `bson` tags and automatically generates type-safe field name constants. This eliminates string literals in your code and provides compile-time safety when referencing struct field names.
 
 ## Installation
 
@@ -10,6 +16,10 @@ Install the tool using `go install`:
 
 ```bash
 go install github.com/namnv2496/metamodel@latest
+
+or
+
+go install github.com/namnv2496/metamodel@v1.0.0
 ```
 
 Or build from source:
@@ -70,10 +80,10 @@ import (
 
 func main() {
 	// Use the generated metamodel constants
-	fmt.Println("Scenarios.TableName:", repository_.Scenarios_.TableName)
-	fmt.Println("Scenarios.FeatureName:", repository_.Scenarios_.FeatureName)
-	fmt.Println("Scenarios.Status:", repository_.Scenarios_.Status)
-	fmt.Println("Feature.FeatureName:", repository_.Feature_.FeatureName)
-	fmt.Println("AnotherModel.UserID:", repository_.AnotherModel_.UserID)
+	fmt.Println("Scenarios.TableName: ", repository_.Scenarios_.TableName)
+	fmt.Println("Scenarios.FeatureName: ", repository_.Scenarios_.FeatureName)
+	fmt.Println("Scenarios.Status: ", repository_.Scenarios_.Status)
+	fmt.Println("Feature.ScenarioID: ", repository_.Feature_.ScenarioID)
+	fmt.Println("AnotherModel.UserID: ", repository_.AnotherModel_.UserID)
 }
 ```

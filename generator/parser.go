@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -12,7 +13,7 @@ func ParseFile(filename string, tag string) ([]StructMeta, string, error) {
 	fset := token.NewFileSet()
 	node, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
 	if err != nil {
-		return nil, "", err
+		return nil, "", fmt.Errorf("failed to parse file %s: %w", filename, err)
 	}
 	var structs []StructMeta
 	packageName := node.Name.Name + "_"
@@ -32,8 +33,8 @@ func ParseFile(filename string, tag string) ([]StructMeta, string, error) {
 			}
 			structName := typeSpec.Name.Name
 			meta := StructMeta{
-				Name:   structName,
-				Fields: parseFields(structType, tag),
+				StructName: structName,
+				Fields:     parseFields(structType, tag),
 			}
 			if len(meta.Fields) > 0 {
 				structs = append(structs, meta)
@@ -55,17 +56,14 @@ func parseFields(structType *ast.StructType, tag string) []FieldMeta {
 		structTag := reflect.StructTag(tagValue)
 		// Extract tag based on preference
 		tagName := ""
-		if tag == "json" {
+		switch tag {
+		case "json":
 			if jsonTag := structTag.Get("json"); jsonTag != "" {
 				tagName = parseTagName(jsonTag)
-			} else if bsonTag := structTag.Get("bson"); bsonTag != "" {
-				tagName = parseTagName(bsonTag)
 			}
-		} else if tag == "bson" {
+		case "bson":
 			if bsonTag := structTag.Get("bson"); bsonTag != "" {
 				tagName = parseTagName(bsonTag)
-			} else if jsonTag := structTag.Get("json"); jsonTag != "" {
-				tagName = parseTagName(jsonTag)
 			}
 		}
 		if tagName == "" || tagName == "-" {
@@ -73,8 +71,8 @@ func parseFields(structType *ast.StructType, tag string) []FieldMeta {
 		}
 		for _, ident := range field.Names {
 			fields = append(fields, FieldMeta{
-				Name:    ident.Name,
-				TagName: tagName,
+				FieldName: ident.Name,
+				TagName:   tagName,
 			})
 		}
 	}
