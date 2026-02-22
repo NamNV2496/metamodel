@@ -51,21 +51,13 @@ func parseFields(structType *ast.StructType, tag string) []FieldMeta {
 		if field.Tag == nil {
 			continue
 		}
-		// Parse the tag
 		tagValue := strings.Trim(field.Tag.Value, "`")
 		structTag := reflect.StructTag(tagValue)
-		// Extract tag based on preference
-		tagName := ""
-		switch tag {
-		case "json":
-			if jsonTag := structTag.Get("json"); jsonTag != "" {
-				tagName = parseTagName(jsonTag)
-			}
-		case "bson":
-			if bsonTag := structTag.Get("bson"); bsonTag != "" {
-				tagName = parseTagName(bsonTag)
-			}
+		rawTag := structTag.Get(tag)
+		if rawTag == "" {
+			continue
 		}
+		tagName := parseTagName(rawTag)
 		if tagName == "" || tagName == "-" {
 			continue
 		}
