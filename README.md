@@ -98,6 +98,23 @@ var Scenarios_ = struct {
 	Status:      "status",
 	Description: "desc",
 }
+
+//go:generate metamodel -source=$GOFILE -destination=../generated/ -tag=gorm
+var GormTest_ = struct {
+	TableName   string
+	TableNames  string
+	FeatureName Field
+	Type        Field
+	IsActive    Field
+	GormElement Field
+}{
+	TableName:   "gorm_test",
+	TableNames:  "gorm_tests", // table name with 's'
+	FeatureName: "feature_name",
+	Type:        "type",
+	IsActive:    "is_active",
+	GormElement: "gorm_element",
+}
 ```
 
 ### Direct Command Line Usage
@@ -120,9 +137,17 @@ import (
 func main() {
 	// Use the generated metamodel constants
 	fmt.Println("Scenarios.TableName: ", repository_.Scenarios_.TableName)
-	fmt.Println("Scenarios.FeatureName: ", repository_.Scenarios_.FeatureName)
 	fmt.Println("Scenarios.Status: ", repository_.Scenarios_.Status)
 	fmt.Println("Feature.ScenarioID: ", repository_.Feature_.ScenarioID)
-	fmt.Println("AnotherModel.UserID: ", repository_.AnotherModel_.UserID)
+	fmt.Println("AnotherModel.UserName: ", repository_.AnotherModel_.UserName)
+
+	// build gorm query
+	fmt.Println(repository_.GormTest_.FeatureName.Equal("1"))
+	fmt.Println(repository_.GormTest_.FeatureName.Equal(2))
+	fmt.Println(repository_.GormTest_.FeatureName.EqualString("5"))
+	fmt.Println(repository_.GormTest_.FeatureName.EqualString(10))
+	fmt.Println(repository_.GormTest_.FeatureName.IsFalse())
+	fmt.Println("==========")
 }
+
 ```
