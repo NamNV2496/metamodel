@@ -1,7 +1,6 @@
 build:
 	go build -o metamodel .
 
-install:
-	go install .
-
+clean:
+	go clean -cache
 

@@ -20,6 +20,11 @@ cd metamodel
 go install .
 ```
 
+### How to remove
+
+```bash
+rm $(go env GOPATH)/bin/metamodel
+```
 ## Usage
 
 ### Using with go generate (Recommended)
@@ -49,6 +54,26 @@ go generate ./...
 ### Direct Command Line Usage
 
 ```bash
-metamodel -source=path/to/your/file.go
+metamodel -source=path/to/your/file.go -destination=path/to/generate_file.go -tag=bson
 ```
 
+# Example
+
+```go
+package main
+
+import (
+	"fmt"
+
+	repository_ "github.com/namnv2496/exmaple/generated"
+)
+
+func main() {
+	// Use the generated metamodel constants
+	fmt.Println("Scenarios.FeatureName:", repository_.Scenarios_.Table)
+	fmt.Println("Scenarios.FeatureName:", repository_.Scenarios_.FeatureName)
+	fmt.Println("Scenarios.Status:", repository_.Scenarios_.Status)
+	fmt.Println("Feature.FeatureName:", repository_.Feature_.FeatureName)
+	fmt.Println("AnotherModel.UserID:", repository_.AnotherModel_.UserID)
+}
+```
