@@ -150,4 +150,15 @@ func main() {
 	fmt.Println("==========")
 }
 
+// Output
+Scenarios.TableName:  scenarios
+Scenarios.Status:  status
+Feature.ScenarioID:  scenario_id
+AnotherModel.UserName:  user_name
+{feature_name 1}
+{feature_name 2}
+ feature_name = 5 
+ feature_name = 10 
+{feature_name false}
+==========
 ```
