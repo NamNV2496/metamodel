@@ -10,7 +10,7 @@ var {{.StructName}}_ = struct {
 	TableName string
 	TableNames string
 {{- range .Fields}}
-	{{.FieldName}} {{if $.IsGorm}}Field{{else}}string{{end}}
+	{{.FieldName}} Field
 {{- end}}
 }{
 	TableName: "{{snakeCase .StructName}}",

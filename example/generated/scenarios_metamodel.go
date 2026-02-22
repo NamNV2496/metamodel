@@ -7,8 +7,8 @@ package repository_
 var Scenarios_ = struct {
 	TableName   string
 	TableNames  string
-	Status      string
-	Description string
+	Status      Field
+	Description Field
 }{
 	TableName:   "scenarios",
 	TableNames:  "scenarioss", // table name with 's'
@@ -20,7 +20,7 @@ var Scenarios_ = struct {
 var AnotherModel_ = struct {
 	TableName  string
 	TableNames string
-	UserName   string
+	UserName   Field
 }{
 	TableName:  "another_model",
 	TableNames: "another_models", // table name with 's'

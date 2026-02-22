@@ -80,16 +80,12 @@ func Generate(cfg Config) error {
 		}
 	}
 
-	isGorm := cfg.Tag == "gorm"
-
 	// Prepare template data
 	data := struct {
 		PackageName string
-		IsGorm      bool
 		Structs     []StructMeta
 	}{
 		PackageName: pkgName,
-		IsGorm:      isGorm,
 		Structs:     structs,
 	}
 	// Execute template
@@ -117,10 +113,8 @@ func Generate(cfg Config) error {
 		return fmt.Errorf("failed to write common file: %w", err)
 	}
 	// When tag is gorm, also generate the shared Field type file
-	if isGorm {
-		if err := generateGormFieldFile(pkgName, destDir); err != nil {
-			return fmt.Errorf("failed to write gorm field file: %w", err)
-		}
+	if err := generateOperatorFile(pkgName, destDir); err != nil {
+		return fmt.Errorf("failed to write gorm field file: %w", err)
 	}
 	return nil
 }
@@ -141,8 +135,8 @@ func generateCommonFile(pkgName, destDir string) error {
 	return os.WriteFile(filepath.Join(destDir, "common_metamodel.go"), formatted, 0644)
 }
 
-func generateGormFieldFile(pkgName, destDir string) error {
-	fieldFilePath := filepath.Join(destDir, "gorm_field_metamodel.go")
+func generateOperatorFile(pkgName, destDir string) error {
+	fieldFilePath := filepath.Join(destDir, "operator_metamodel.go")
 	tmpl, err := template.New("gormField").Parse(gormFieldTemplate)
 	if err != nil {
 		return err

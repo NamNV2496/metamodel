@@ -7,9 +7,9 @@ package repository_
 var Feature_ = struct {
 	TableName   string
 	TableNames  string
-	FeatureName string
-	ScenarioID  string
-	Description string
+	FeatureName Field
+	ScenarioID  Field
+	Description Field
 }{
 	TableName:   "feature",
 	TableNames:  "features", // table name with 's'
