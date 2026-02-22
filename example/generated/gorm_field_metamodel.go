@@ -17,7 +17,7 @@ func (f Field) Equal(val any) clause.Eq {
 }
 
 func (f Field) EqualString(val any) string {
-	return fmt.Sprintf(" %s = %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s = %v ", string(f), val)
 }
 
 // NotEqual generates a GORM not-equal condition: "column <> ?"
@@ -26,7 +26,7 @@ func (f Field) NotEqual(val any) clause.Neq {
 }
 
 func (f Field) NotEqualString(val any) string {
-	return fmt.Sprintf(" %s <> %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s <> %v ", string(f), val)
 }
 
 // In generates a GORM IN condition: "column IN (?)"
@@ -48,7 +48,7 @@ func (f Field) Gt(val any) clause.Gt {
 }
 
 func (f Field) GtString(val any) string {
-	return fmt.Sprintf(" %s > %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s > %v ", string(f), val)
 }
 
 // Gte generates a GORM greater-than-or-equal condition: "column >= ?"
@@ -57,7 +57,7 @@ func (f Field) Gte(val any) clause.Gte {
 }
 
 func (f Field) GteString(val any) string {
-	return fmt.Sprintf(" %s >= %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s >= %v ", string(f), val)
 }
 
 // Lt generates a GORM less-than condition: "column < ?"
@@ -66,7 +66,7 @@ func (f Field) Lt(val any) clause.Lt {
 }
 
 func (f Field) LtString(val any) string {
-	return fmt.Sprintf(" %s < %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s < %v ", string(f), val)
 }
 
 // Lte generates a GORM less-than-or-equal condition: "column <= ?"
@@ -75,7 +75,7 @@ func (f Field) Lte(val any) clause.Lte {
 }
 
 func (f Field) LteString(val any) string {
-	return fmt.Sprintf(" %s <= %s ", string(f), fmt.Sprintf("%v", val))
+	return fmt.Sprintf(" %s <= %v ", string(f), val)
 }
 
 // IsTrue generates a GORM equality condition for boolean true.

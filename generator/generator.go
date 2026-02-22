@@ -59,7 +59,6 @@ func Generate(cfg Config) error {
 	if cfg.PackageName != "" {
 		pkgName = cfg.PackageName + "_"
 	}
-	originalDest := cfg.Destination
 	destPath := cfg.Destination
 	if destPath == "" {
 		ext := filepath.Ext(cfg.Source)
@@ -85,17 +84,11 @@ func Generate(cfg Config) error {
 
 	// Prepare template data
 	data := struct {
-		SourceFile  string
 		PackageName string
-		Destination string
-		Tag         string
 		IsGorm      bool
 		Structs     []StructMeta
 	}{
-		SourceFile:  filepath.Base(cfg.Source),
 		PackageName: pkgName,
-		Destination: originalDest,
-		Tag:         cfg.Tag,
 		IsGorm:      isGorm,
 		Structs:     structs,
 	}
