@@ -6,7 +6,7 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-//go:generate metamodel -source=$GOFILE -destination=../generated/ -tag=gorm -packageName=repository
+//go:generate metamodel -source=$GOFILE -destination=../generated/ -tag=gorm -packageName=metamodel
 
 type Entity struct {
 	Id        uint      `gorm:"primaryKey" json:"id,omitempty"`

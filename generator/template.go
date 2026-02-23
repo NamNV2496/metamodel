@@ -174,8 +174,9 @@ func (f Field) As(val any) string {
 	return fmt.Sprintf(" %s as %v ", f.FieldName, val)
 }
 
-func (f Field) AddOwner(val any) string {
-	return fmt.Sprintf(" %v.%s ", val, f.FieldName)
+func (f Field) AddOwner(val any) Field {
+	f.FieldName = fmt.Sprintf(" %v.%s ", val, f.FieldName)
+	return f
 }
 
 func (f Field) WithOwnerString() string {
