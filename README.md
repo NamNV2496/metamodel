@@ -7,7 +7,7 @@ Hard-coded strings are common in development, especially when working with datab
 SELECT * FROM "table" WHERE "id" = xxx AND "name" = 'yyy'
 ```
 
-**Metamodel** is a code generation tool that scans Go structs with `json` or `bson` tags and automatically generates type-safe field name constants. This eliminates string literals in your code and provides compile-time safety when referencing struct field names.
+**Metamodel** is a code generation tool that scans Go structs with `json` or `bson` tags and automatically generates type-safe field name constants. This eliminates string literals in your code and provides compile-time safety when referencing struct field names. Reference: [JPA MetaModel](https://www.baeldung.com/hibernate-criteria-queries-metamodel)
 
 ## Installation
 
