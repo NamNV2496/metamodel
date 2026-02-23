@@ -6,14 +6,12 @@ package repository_
 // Feature_ contains field name constants for Feature
 var Feature_ = struct {
 	TableName   string
-	TableNames  string
 	FeatureName Field
 	ScenarioID  Field
 	Description Field
 }{
-	TableName:   "feature",
-	TableNames:  "features", // table name with 's'
-	FeatureName: "feature_name",
-	ScenarioID:  "scenario_id",
-	Description: "description",
+	TableName:   "test_table_name",
+	FeatureName: Field{FieldName: "feature_name", TableName: "test_table_name"},
+	ScenarioID:  Field{FieldName: "scenario_id", TableName: "test_table_name"},
+	Description: Field{FieldName: "description", TableName: "test_table_name"},
 }

@@ -8,30 +8,48 @@ import (
 	"strings"
 )
 
-// Field represents a database column name with GORM query builder methods.
-type Field string
+// Field represents a database column with its name and table name.
+type Field struct {
+	FieldName string
+	TableName string
+}
+
+// Columns joins the given column expressions with a comma separator.
+// Use it to build SELECT lists:
+//
+//	Columns(
+//	    GormTest_.FeatureName.String(),
+//	    CategoryEntity_.Value.As("category_id"),
+//	)
+func Columns(cols ...string) string {
+	return strings.Join(cols, ", ")
+}
+
+func Join(joinTable string, conditions ...string) string {
+	return fmt.Sprintf(" JOIN %s ON %s ", joinTable, strings.Join(conditions, " AND "))
+}
 
 // Equal generates a GORM equality condition: "column = ?"
 func (f Field) Equal(val any) clause.Eq {
-	return clause.Eq{Column: string(f), Value: val}
+	return clause.Eq{Column: f.FieldName, Value: val}
 }
 
 func (f Field) EqualString(val any) string {
-	return fmt.Sprintf(" %s = %v ", string(f), val)
+	return fmt.Sprintf(" %s = %v ", f.FieldName, val)
 }
 
 // NotEqual generates a GORM not-equal condition: "column <> ?"
 func (f Field) NotEqual(val any) clause.Neq {
-	return clause.Neq{Column: string(f), Value: val}
+	return clause.Neq{Column: f.FieldName, Value: val}
 }
 
 func (f Field) NotEqualString(val any) string {
-	return fmt.Sprintf(" %s <> %v ", string(f), val)
+	return fmt.Sprintf(" %s <> %v ", f.FieldName, val)
 }
 
 // In generates a GORM IN condition: "column IN (?)"
 func (f Field) In(vals ...any) clause.IN {
-	return clause.IN{Column: clause.Column{Name: string(f)}, Values: vals}
+	return clause.IN{Column: clause.Column{Name: f.FieldName}, Values: vals}
 }
 
 func (f Field) InString(vals ...any) string {
@@ -39,86 +57,99 @@ func (f Field) InString(vals ...any) string {
 	for _, v := range vals {
 		valStrs = append(valStrs, fmt.Sprintf("%s", v))
 	}
-	return fmt.Sprintf(" %s IN (%s) ", string(f), strings.Join(valStrs, ", "))
+	return fmt.Sprintf(" %s IN (%s) ", f.FieldName, strings.Join(valStrs, ", "))
 }
 
 // Gt generates a GORM greater-than condition: "column > ?"
 func (f Field) Gt(val any) clause.Gt {
-	return clause.Gt{Column: string(f), Value: val}
+	return clause.Gt{Column: f.FieldName, Value: val}
 }
 
 func (f Field) GtString(val any) string {
-	return fmt.Sprintf(" %s > %v ", string(f), val)
+	return fmt.Sprintf(" %s > %v ", f.FieldName, val)
 }
 
 // Gte generates a GORM greater-than-or-equal condition: "column >= ?"
 func (f Field) Gte(val any) clause.Gte {
-	return clause.Gte{Column: string(f), Value: val}
+	return clause.Gte{Column: f.FieldName, Value: val}
 }
 
 func (f Field) GteString(val any) string {
-	return fmt.Sprintf(" %s >= %v ", string(f), val)
+	return fmt.Sprintf(" %s >= %v ", f.FieldName, val)
 }
 
 // Lt generates a GORM less-than condition: "column < ?"
 func (f Field) Lt(val any) clause.Lt {
-	return clause.Lt{Column: string(f), Value: val}
+	return clause.Lt{Column: f.FieldName, Value: val}
 }
 
 func (f Field) LtString(val any) string {
-	return fmt.Sprintf(" %s < %v ", string(f), val)
+	return fmt.Sprintf(" %s < %v ", f.FieldName, val)
 }
 
 // Lte generates a GORM less-than-or-equal condition: "column <= ?"
 func (f Field) Lte(val any) clause.Lte {
-	return clause.Lte{Column: string(f), Value: val}
+	return clause.Lte{Column: f.FieldName, Value: val}
 }
 
 func (f Field) LteString(val any) string {
-	return fmt.Sprintf(" %s <= %v ", string(f), val)
+	return fmt.Sprintf(" %s <= %v ", f.FieldName, val)
 }
 
 // IsTrue generates a GORM equality condition for boolean true.
 func (f Field) IsTrue() clause.Eq {
-	return clause.Eq{Column: string(f), Value: true}
+	return clause.Eq{Column: f.FieldName, Value: true}
 }
 
 func (f Field) IsTrueString() string {
-	return fmt.Sprintf(" %s = true ", string(f))
+	return fmt.Sprintf(" %s = true ", f.FieldName)
 }
 
 // IsFalse generates a GORM equality condition for boolean false.
 func (f Field) IsFalse() clause.Eq {
-	return clause.Eq{Column: string(f), Value: false}
+	return clause.Eq{Column: f.FieldName, Value: false}
 }
 
 func (f Field) IsFalseString() string {
-	return fmt.Sprintf(" %s = false ", string(f))
+	return fmt.Sprintf(" %s = false ", f.FieldName)
 }
 
 // Asc returns an ORDER BY ascending expression.
 func (f Field) Asc() clause.OrderByColumn {
-	return clause.OrderByColumn{Column: clause.Column{Name: string(f)}}
+	return clause.OrderByColumn{Column: clause.Column{Name: f.FieldName}}
 }
 
 func (f Field) AscString() string {
-	return fmt.Sprintf(" %s ASC ", string(f))
+	return fmt.Sprintf(" %s ASC ", f.FieldName)
 }
 
 // Desc returns an ORDER BY descending expression.
 func (f Field) Desc() clause.OrderByColumn {
-	return clause.OrderByColumn{Column: clause.Column{Name: string(f)}, Desc: true}
+	return clause.OrderByColumn{Column: clause.Column{Name: f.FieldName}, Desc: true}
 }
 
 func (f Field) DescString() string {
-	return fmt.Sprintf(" %s DESC ", string(f))
+	return fmt.Sprintf(" %s DESC ", f.FieldName)
 }
 
 // String returns the raw column name.
 func (f Field) String() string {
-	return string(f)
+	return f.FieldName
 }
 
 func (f Field) As(val any) string {
-	return fmt.Sprintf(" %s as %v ", string(f), val)
+	return fmt.Sprintf(" %s as %v ", f.FieldName, val)
+}
+
+func (f Field) AddOwner(val any) string {
+	return fmt.Sprintf(" %v.%s ", val, f.FieldName)
+}
+
+func (f Field) WithOwnerString() string {
+	return fmt.Sprintf(" %s.%s ", f.TableName, f.FieldName)
+}
+
+func (f Field) WithOwner() Field {
+	f.FieldName = fmt.Sprintf(" %s.%s ", f.TableName, f.FieldName)
+	return f
 }

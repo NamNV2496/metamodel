@@ -17,6 +17,7 @@ type Config struct {
 	Destination string
 	PackageName string
 	Tag         string
+	TableName   string
 }
 
 // StructMeta holds metadata for a struct
@@ -89,8 +90,14 @@ func Generate(cfg Config) error {
 		Structs:     structs,
 	}
 	// Execute template
+	tableNameFn := func(structName string) string {
+		if cfg.TableName != "" {
+			return cfg.TableName
+		}
+		return toSnakeCase(structName) + "s"
+	}
 	tmpl, err := template.New("metamodel").Funcs(template.FuncMap{
-		"snakeCase": toSnakeCase,
+		"tableName": tableNameFn,
 	}).Parse(metamodelTemplate)
 	if err != nil {
 		return fmt.Errorf("failed to parse template: %w", err)

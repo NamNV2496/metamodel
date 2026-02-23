@@ -6,7 +6,6 @@ package repository_
 // GormTest_ contains field name constants for GormTest
 var GormTest_ = struct {
 	TableName      string
-	TableNames     string
 	Id             Field
 	Uuid           Field
 	CreatedAt      Field
@@ -18,35 +17,31 @@ var GormTest_ = struct {
 	PriceUnit      Field
 	EmbeddedEntity Field
 }{
-	TableName:      "gorm_test",
-	TableNames:     "gorm_tests", // table name with 's'
-	Id:             "id",
-	Uuid:           "uuid",
-	CreatedAt:      "created_at",
-	UpdatedAt:      "updated_at",
-	FeatureName:    "feature_name",
-	Type:           "type",
-	IsActive:       "is_active",
-	GormElement:    "gorm_element",
-	PriceUnit:      "price_unit",
-	EmbeddedEntity: "embedded_entity",
+	TableName:      "gorm_tests",
+	Id:             Field{FieldName: "id", TableName: "gorm_tests"},
+	Uuid:           Field{FieldName: "uuid", TableName: "gorm_tests"},
+	CreatedAt:      Field{FieldName: "created_at", TableName: "gorm_tests"},
+	UpdatedAt:      Field{FieldName: "updated_at", TableName: "gorm_tests"},
+	FeatureName:    Field{FieldName: "feature_name", TableName: "gorm_tests"},
+	Type:           Field{FieldName: "type", TableName: "gorm_tests"},
+	IsActive:       Field{FieldName: "is_active", TableName: "gorm_tests"},
+	GormElement:    Field{FieldName: "gorm_element", TableName: "gorm_tests"},
+	PriceUnit:      Field{FieldName: "price_unit", TableName: "gorm_tests"},
+	EmbeddedEntity: Field{FieldName: "embedded_entity", TableName: "gorm_tests"},
 }
 
 // GormElement_ contains field name constants for GormElement
 var GormElement_ = struct {
-	TableName  string
-	TableNames string
-	Name       Field
+	TableName string
+	Name      Field
 }{
-	TableName:  "gorm_element",
-	TableNames: "gorm_elements", // table name with 's'
-	Name:       "name",
+	TableName: "gorm_elements",
+	Name:      Field{FieldName: "name", TableName: "gorm_elements"},
 }
 
 // EmbeddedEntity_ contains field name constants for EmbeddedEntity
 var EmbeddedEntity_ = struct {
 	TableName    string
-	TableNames   string
 	Id           Field
 	Uuid         Field
 	CreatedAt    Field
@@ -55,13 +50,12 @@ var EmbeddedEntity_ = struct {
 	ParentId     Field
 	Value        Field
 }{
-	TableName:    "embedded_entity",
-	TableNames:   "embedded_entitys", // table name with 's'
-	Id:           "id",
-	Uuid:         "uuid",
-	CreatedAt:    "created_at",
-	UpdatedAt:    "updated_at",
-	CategoryType: "category_type",
-	ParentId:     "parent_id",
-	Value:        "value",
+	TableName:    "embedded_entitys",
+	Id:           Field{FieldName: "id", TableName: "embedded_entitys"},
+	Uuid:         Field{FieldName: "uuid", TableName: "embedded_entitys"},
+	CreatedAt:    Field{FieldName: "created_at", TableName: "embedded_entitys"},
+	UpdatedAt:    Field{FieldName: "updated_at", TableName: "embedded_entitys"},
+	CategoryType: Field{FieldName: "category_type", TableName: "embedded_entitys"},
+	ParentId:     Field{FieldName: "parent_id", TableName: "embedded_entitys"},
+	Value:        Field{FieldName: "value", TableName: "embedded_entitys"},
 }

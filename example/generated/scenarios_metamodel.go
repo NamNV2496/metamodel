@@ -6,23 +6,19 @@ package repository_
 // Scenarios_ contains field name constants for Scenarios
 var Scenarios_ = struct {
 	TableName   string
-	TableNames  string
 	Status      Field
 	Description Field
 }{
-	TableName:   "scenarios",
-	TableNames:  "scenarioss", // table name with 's'
-	Status:      "status",
-	Description: "desc",
+	TableName:   "scenarioss",
+	Status:      Field{FieldName: "status", TableName: "scenarioss"},
+	Description: Field{FieldName: "desc", TableName: "scenarioss"},
 }
 
 // AnotherModel_ contains field name constants for AnotherModel
 var AnotherModel_ = struct {
-	TableName  string
-	TableNames string
-	UserName   Field
+	TableName string
+	UserName  Field
 }{
-	TableName:  "another_model",
-	TableNames: "another_models", // table name with 's'
-	UserName:   "user_name",
+	TableName: "another_models",
+	UserName:  Field{FieldName: "user_name", TableName: "another_models"},
 }

@@ -1,6 +1,6 @@
 package repository
 
-//go:generate metamodel -source=$GOFILE -destination=../generated/ -tag=json -packageName=repository
+//go:generate metamodel -source=$GOFILE -destination=../generated/ -tag=json -packageName=repository -tableName=test_table_name
 type Feature struct {
 	FeatureName string `json:"feature_name,omitempty"`
 	ScenarioID  int    `json:"scenario_id"`

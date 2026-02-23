@@ -5,17 +5,15 @@ package repository_
 
 // Entity_ contains field name constants for Entity
 var Entity_ = struct {
-	TableName  string
-	TableNames string
-	Id         Field
-	Uuid       Field
-	CreatedAt  Field
-	UpdatedAt  Field
+	TableName string
+	Id        Field
+	Uuid      Field
+	CreatedAt Field
+	UpdatedAt Field
 }{
-	TableName:  "entity",
-	TableNames: "entitys", // table name with 's'
-	Id:         "id",
-	Uuid:       "uuid",
-	CreatedAt:  "created_at",
-	UpdatedAt:  "updated_at",
+	TableName: "entitys",
+	Id:        Field{FieldName: "id", TableName: "entitys"},
+	Uuid:      Field{FieldName: "uuid", TableName: "entitys"},
+	CreatedAt: Field{FieldName: "created_at", TableName: "entitys"},
+	UpdatedAt: Field{FieldName: "updated_at", TableName: "entitys"},
 }

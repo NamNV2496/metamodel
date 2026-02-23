@@ -14,6 +14,7 @@ var (
 	destination = flag.String("destination", "", "Output file for generated code (default: <source>_metamodel.go, e.g., models_metamodel.go)")
 	packageName = flag.String("packageName", "", "Package name for generated file (default: same as source, e.g., models)")
 	tag         = flag.String("tag", "json", "Specific tag name to generate (optional, e.g., json, bson, gorm)")
+	tableName   = flag.String("tableName", "", "Specific table name to generate (optional, e.g., json, bson, gorm)")
 )
 
 func main() {
@@ -30,6 +31,7 @@ func main() {
 		Destination: *destination,
 		PackageName: *packageName,
 		Tag:         *tag,
+		TableName:   *tableName,
 	}
 
 	if err := generator.Generate(cfg); err != nil {

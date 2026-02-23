@@ -18,6 +18,6 @@ func main() {
 	fmt.Println(repository_.GormTest_.FeatureName.Equal(2))
 	fmt.Println(repository_.GormTest_.FeatureName.EqualString("5"))
 	fmt.Println(repository_.GormTest_.FeatureName.EqualString(10))
-	fmt.Println(repository_.GormTest_.FeatureName.IsFalse())
+	fmt.Println(repository_.GormTest_.FeatureName.WithOwner().Equal(1000))
 	fmt.Println("==========")
 }
