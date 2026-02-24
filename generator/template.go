@@ -281,16 +281,20 @@ func (f Field) As(val any) string {
 	return fmt.Sprintf(" %s as %v ", f.FieldName, val)
 }
 
-func (f Field) AddOwner(val any) Field {
+func (f Field) WithOwner(val string) Field {
 	f.FieldName = fmt.Sprintf(" %v.%s ", val, f.FieldName)
 	return f
 }
 
-func (f Field) WithOwnerString() string {
+func (f Field) WithOwnerString(val string) string {
+	return fmt.Sprintf(" %s.%s ", val, f.FieldName)
+}
+
+func (f Field) WithDefaultOwnerString() string {
 	return fmt.Sprintf(" %s.%s ", f.TableName, f.FieldName)
 }
 
-func (f Field) WithOwner() Field {
+func (f Field) WithDefaultOwner() Field {
 	f.FieldName = fmt.Sprintf(" %s.%s ", f.TableName, f.FieldName)
 	return f
 }

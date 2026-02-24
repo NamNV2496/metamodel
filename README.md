@@ -146,8 +146,9 @@ func main() {
 	fmt.Println(metamodel_.GormTest_.FeatureName.Equal(2))
 	fmt.Println(metamodel_.GormTest_.FeatureName.EqualString("5"))
 	fmt.Println(metamodel_.GormTest_.FeatureName.EqualString(10))
-	fmt.Println(metamodel_.GormTest_.FeatureName.WithOwner().Equal(1000))
-	fmt.Println(metamodel_.GormTest_.FeatureName.AddOwner("features").Equal(1000))
+	fmt.Println(metamodel_.GormTest_.FeatureName.WithDefaultOwner().Equal(1000))
+	fmt.Println(metamodel_.GormTest_.FeatureName.WithOwner("features").Equal(1000))
+	fmt.Println(metamodel_.GormTest_.FeatureName.WithOwnerString("features"))
 
 	fmt.Println(metamodel_.Join("table", metamodel_.GormTest_.FeatureName.EqualString("1")))
 	fmt.Println("select " + metamodel_.Columns(
@@ -168,6 +169,7 @@ AnotherModel.UserName:  user_name
  feature_name = 10 
 { gorm_tests.feature_name  1000}
 { features.feature_name  1000}
+ features.feature_name 
  JOIN table ON  feature_name = 1  
 select status, desc
 ==========
