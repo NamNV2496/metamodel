@@ -12,7 +12,7 @@ import (
 var (
 	source      = flag.String("source", "", "Source file to generate metamodel from (e.g., models.go)")
 	destination = flag.String("destination", "", "Output file for generated code (default: <source>_metamodel.go, e.g., models_metamodel.go)")
-	packageName = flag.String("packageName", "metamodel", "Package name for generated file (default: same as source, e.g., models)")
+	packageName = flag.String("packageName", "metamodel", "Package name for generated file (default: metamodel_, optional for custome with pattern <packageName>_, e.g., models)")
 	tag         = flag.String("tag", "json", "Specific tag name to generate (optional, e.g., json, bson, gorm)")
 	tableName   = flag.String("tableName", "", "Specific table name to generate (default: <structName>s, optional for custome e.g., users, mock_test)")
 )
