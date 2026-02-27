@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	metamodel_ "github.com/namnv2496/exmaple/generated"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -27,5 +28,37 @@ func main() {
 		metamodel_.Scenarios_.Status.String(),
 		metamodel_.Scenarios_.Description.String(),
 	))
-	fmt.Println("==========")
+
+	var db *gorm.DB
+	var results []map[string]interface{} // or []metamodel_.GormTest
+
+	db.Table(metamodel_.GormTest_.TableName).
+		Select(
+			metamodel_.GormTest_.Id.String(),
+			metamodel_.GormTest_.IsActive.String(),
+			metamodel_.GormTest_.FeatureName.String(),
+			metamodel_.GormTest_.PriceUnit.String(),
+			metamodel_.GormTest_.Type.String(),
+		).
+		Where(metamodel_.GormTest_.IsActive.IsTrueString()).
+		Where(metamodel_.GormTest_.FeatureName.EqualString("test")).
+		Order(metamodel_.GormTest_.Id.AscString()).
+		Find(&results)
+	fmt.Println(db.Statement.SQL.String()) // or use db.Raw(query).Scan(&results)
+	// or
+	// query := metamodel_.NewQueryBuilder(metamodel_.GormTest_.TableName).
+	// 	Select(
+	// 		metamodel_.GormTest_.Id.String(),
+	// 		metamodel_.GormTest_.IsActive.String(),
+	// 		metamodel_.GormTest_.FeatureName.String(),
+	// 		metamodel_.GormTest_.PriceUnit.String(),
+	// 		metamodel_.GormTest_.Type.String(),
+	// 	).
+	// 	Where(
+	// 		metamodel_.AndString(metamodel_.GormTest_.IsActive.IsTrueString()),
+	// 		metamodel_.AndString(metamodel_.GormTest_.FeatureName.EqualString("test")),
+	// 	).
+	// 	OrderBy(metamodel_.GormTest_.Id.AscString()).
+	// 	Build()
+	// fmt.Println(query)
 }

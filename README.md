@@ -4,10 +4,42 @@
 
 Hard-coded strings are common in development, especially when working with databases. For example:
 ```sql
-SELECT * FROM "table" WHERE "id" = xxx AND "name" = 'yyy'
+SELECT * FROM "gorm_tests" WHERE "id" = xxx AND "name" = 'yyy'
 ```
 
 **Metamodel** is a code generation tool that scans Go structs with `json` or `bson` tags and automatically generates type-safe field name constants. This eliminates string literals in your code and provides compile-time safety when referencing struct field names. Reference: [JPA MetaModel](https://www.baeldung.com/hibernate-criteria-queries-metamodel)
+
+The code can more clean
+```go
+db.Table(metamodel_.GormTest_.TableName).
+	Select(
+		metamodel_.GormTest_.Id.String(),
+		metamodel_.GormTest_.IsActive.String(),
+		metamodel_.GormTest_.FeatureName.String(),
+		metamodel_.GormTest_.PriceUnit.String(),
+		metamodel_.GormTest_.Type.String(),
+	).
+	Where(metamodel_.GormTest_.IsActive.IsTrueString()).
+	Where(metamodel_.GormTest_.FeatureName.EqualString("test")).
+	Order(metamodel_.GormTest_.Id.AscString()).
+	Find(&results)
+// instead of
+db.Table(metamodel_.GormTest_.TableName).
+	Select(
+		"id",
+		"is_active",
+		"feature_name",
+		"price_unit",
+		"type",
+	).
+	Where("is_active == true").
+	Where("feature_name = 'test'").
+	Order("id ASC").
+	Find(&results)
+// output 
+
+// SELECT id,is_active,feature_name,price_unit,type FROM gorm_tests WHERE  is_active = true  AND  feature_name = test  ORDER BY  id ASC 
+```
 
 ## Installation
 
