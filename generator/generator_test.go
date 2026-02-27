@@ -146,7 +146,7 @@ func TestGenerate_CreatesCommonAndOperatorFiles(t *testing.T) {
 		t.Fatalf("Generate() error = %v", err)
 	}
 
-	for _, name := range []string{"common_metamodel.go", "operator_metamodel.go"} {
+	for _, name := range []string{"common_metamodel.go", "gorm_operator_metamodel.go", "mongo_operator_metamodel.go"} {
 		if _, err := os.Stat(filepath.Join(dir, name)); err != nil {
 			t.Errorf("expected %s to be created: %v", name, err)
 		}

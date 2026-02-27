@@ -123,6 +123,9 @@ func Generate(cfg Config) error {
 	if err := generateOperatorFile(pkgName, destDir); err != nil {
 		return fmt.Errorf("failed to write gorm field file: %w", err)
 	}
+	if err := generateMongoOperatorFile(pkgName, destDir); err != nil {
+		return fmt.Errorf("failed to write mongo operator file: %w", err)
+	}
 	return nil
 }
 
@@ -142,8 +145,25 @@ func generateCommonFile(pkgName, destDir string) error {
 	return os.WriteFile(filepath.Join(destDir, "common_metamodel.go"), formatted, 0644)
 }
 
+func generateMongoOperatorFile(pkgName, destDir string) error {
+	filePath := filepath.Join(destDir, "mongo_operator_metamodel.go")
+	tmpl, err := template.New("mongo_operator").Delims("[[", "]]").Parse(mongoFieldTemplate)
+	if err != nil {
+		return err
+	}
+	var buf bytes.Buffer
+	if err := tmpl.Execute(&buf, struct{ PackageName string }{pkgName}); err != nil {
+		return err
+	}
+	formatted, err := format.Source(buf.Bytes())
+	if err != nil {
+		formatted = buf.Bytes()
+	}
+	return os.WriteFile(filePath, formatted, 0644)
+}
+
 func generateOperatorFile(pkgName, destDir string) error {
-	fieldFilePath := filepath.Join(destDir, "operator_metamodel.go")
+	fieldFilePath := filepath.Join(destDir, "gorm_operator_metamodel.go")
 	tmpl, err := template.New("operator").Parse(gormFieldTemplate)
 	if err != nil {
 		return err
