@@ -34,9 +34,9 @@ func main() {
 
 	db.Table(metamodel_.GormTest_.TableName).
 		Select(
-			metamodel_.GormTest_.Id.String(),
-			metamodel_.GormTest_.IsActive.String(),
-			metamodel_.GormTest_.FeatureName.String(),
+			metamodel_.GormTest_.Id.WithDefaultOwner().String(),
+			metamodel_.GormTest_.IsActive.WithDefaultOwner().String(),
+			metamodel_.Feature_.FeatureName.WithOwner(metamodel_.Feature_.FeatureName.TableName).String(),
 			metamodel_.GormTest_.PriceUnit.String(),
 			metamodel_.GormTest_.Type.String(),
 		).
@@ -50,7 +50,7 @@ func main() {
 	// 	Select(
 	// 		metamodel_.GormTest_.Id.String(),
 	// 		metamodel_.GormTest_.IsActive.String(),
-	// 		metamodel_.GormTest_.FeatureName.String(),
+	// 		metamodel_.Feature_.FeatureName.String(),
 	// 		metamodel_.GormTest_.PriceUnit.String(),
 	// 		metamodel_.GormTest_.Type.String(),
 	// 	).

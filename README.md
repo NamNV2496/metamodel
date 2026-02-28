@@ -9,13 +9,13 @@ SELECT * FROM "gorm_tests" WHERE "id" = xxx AND "name" = 'yyy'
 
 **Metamodel** is a code generation tool that scans Go structs with `json` or `bson` tags and automatically generates type-safe field name constants. This eliminates string literals in your code and provides compile-time safety when referencing struct field names. Reference: [JPA MetaModel](https://www.baeldung.com/hibernate-criteria-queries-metamodel)
 
-The code can more clean
+The code can be much cleaner
 ```go
 db.Table(metamodel_.GormTest_.TableName).
 	Select(
-		metamodel_.GormTest_.Id.String(),
-		metamodel_.GormTest_.IsActive.String(),
-		metamodel_.GormTest_.FeatureName.String(),
+		metamodel_.GormTest_.Id.WithDefaultOwner().String(),
+		metamodel_.GormTest_.IsActive.WithDefaultOwner().String(),
+		metamodel_.Feature_.FeatureName.WithOwner("custom_name").String(),
 		metamodel_.GormTest_.PriceUnit.String(),
 		metamodel_.GormTest_.Type.String(),
 	).
@@ -23,22 +23,23 @@ db.Table(metamodel_.GormTest_.TableName).
 	Where(metamodel_.GormTest_.FeatureName.EqualString("test")).
 	Order(metamodel_.GormTest_.Id.AscString()).
 	Find(&results)
+
 // instead of
 db.Table(metamodel_.GormTest_.TableName).
 	Select(
-		"id",
-		"is_active",
-		"feature_name",
-		"price_unit",
-		"type",
+		"gorm_tests.id",
+		"gorm_tests.is_active",
+		"custom_name.feature_name",
+		"gorm_tests.price_unit",
+		"gorm_tests.type",
 	).
-	Where("is_active == true").
+	Where("is_active = true").
 	Where("feature_name = 'test'").
 	Order("id ASC").
 	Find(&results)
-// output 
 
-// SELECT id,is_active,feature_name,price_unit,type FROM gorm_tests WHERE  is_active = true  AND  feature_name = test  ORDER BY  id ASC 
+// output 
+// SELECT gorm_tests.id, gorm_tests.is_active, custom_name.feature_name, gorm_tests.price_unit, gorm_tests.type FROM gorm_tests WHERE  is_active = true  AND  feature_name = test  ORDER BY  id ASC 
 ```
 
 ## Installation
@@ -52,8 +53,8 @@ go install github.com/namnv2496/metamodel@latest
 Or build from source:
 
 ```bash
-git clone https://github.com/namnv2496/metamodel.git
-cd metamodel
+git clone https://github.com/namnv2496/go-metamodel.git
+cd go-metamodel
 go install .
 ```
 

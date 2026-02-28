@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-func ParseFile(filename string, tag string) ([]StructMeta, string, error) {
+func parseFile(filename string, tag string) ([]StructMeta, string, error) {
 	fset := token.NewFileSet()
 	node, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
 	if err != nil {

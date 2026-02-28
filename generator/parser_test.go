@@ -99,9 +99,9 @@ type Order struct {
 }
 `)
 
-	structs, pkg, err := ParseFile(src, "json")
+	structs, pkg, err := parseFile(src, "json")
 	if err != nil {
-		t.Fatalf("ParseFile() error = %v", err)
+		t.Fatalf("parseFile() error = %v", err)
 	}
 	if pkg != "models_" {
 		t.Errorf("pkg = %q, want %q", pkg, "models_")
@@ -135,9 +135,9 @@ type Item struct {
 }
 `)
 
-	structs, _, err := ParseFile(src, "gorm")
+	structs, _, err := parseFile(src, "gorm")
 	if err != nil {
-		t.Fatalf("ParseFile() error = %v", err)
+		t.Fatalf("parseFile() error = %v", err)
 	}
 	if len(structs) != 1 {
 		t.Fatalf("got %d structs, want 1", len(structs))
@@ -166,9 +166,9 @@ type Bar struct {
 }
 `)
 
-	structs, _, err := ParseFile(src, "json")
+	structs, _, err := parseFile(src, "json")
 	if err != nil {
-		t.Fatalf("ParseFile() error = %v", err)
+		t.Fatalf("parseFile() error = %v", err)
 	}
 	if len(structs) != 2 {
 		t.Errorf("got %d structs, want 2", len(structs))
@@ -189,9 +189,9 @@ type WithTags struct {
 }
 `)
 
-	structs, _, err := ParseFile(src, "json")
+	structs, _, err := parseFile(src, "json")
 	if err != nil {
-		t.Fatalf("ParseFile() error = %v", err)
+		t.Fatalf("parseFile() error = %v", err)
 	}
 	if len(structs) != 1 {
 		t.Fatalf("got %d structs, want 1", len(structs))
@@ -202,7 +202,7 @@ type WithTags struct {
 }
 
 func TestParseFile_InvalidPath(t *testing.T) {
-	_, _, err := ParseFile("/nonexistent/path/file.go", "json")
+	_, _, err := parseFile("/nonexistent/path/file.go", "json")
 	if err == nil {
 		t.Fatal("expected error for nonexistent file, got nil")
 	}
@@ -213,7 +213,7 @@ func TestParseFile_InvalidGoSyntax(t *testing.T) {
 	src := dir + "/bad.go"
 	mustWriteFile(t, src, "package models\nthis is not valid go {{{{")
 
-	_, _, err := ParseFile(src, "json")
+	_, _, err := parseFile(src, "json")
 	if err == nil {
 		t.Fatal("expected error for invalid Go syntax, got nil")
 	}

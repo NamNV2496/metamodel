@@ -50,7 +50,7 @@ func toSnakeCase(s string) string {
 // Generate generates metamodel code for the given configuration
 func Generate(cfg Config) error {
 	// Parse the source file
-	structs, pkgName, err := ParseFile(cfg.Source, cfg.Tag)
+	structs, pkgName, err := parseFile(cfg.Source, cfg.Tag)
 	if err != nil {
 		return fmt.Errorf("failed to parse source file: %w", err)
 	}
